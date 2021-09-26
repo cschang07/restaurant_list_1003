@@ -11,31 +11,31 @@ const restaurantSchema = new Schema({
   },
   category: {
     type: String,
-    require: true
+    required: true
   },
   image: {
     type: String,
-    require: true
+    required: true
   },
   location: {
     type: String,
-    require: true
+    required: true
   },
   phone: {
     type: String,
-    require: true
+    required: true
   },
   google_map: {
     type: String,
-    require: true
+    required: true
   },
   rating: {
     type: Number,
-    require: true
+    required: true
   },
   description: {
     type: String,
-    require: true
+    required: true
   },
 })
 
