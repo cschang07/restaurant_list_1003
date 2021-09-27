@@ -6,6 +6,7 @@ const app = express()
 const port = 3000
 const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 const bodyParser = require('body-parser')
+// const restaurant = require('./models/restaurant')
 
 // const restaurantList = require('./restaurant.json')
 
@@ -47,6 +48,14 @@ app.post('/restaurants', (req, res) => {
   // console.log(req.body)
   return Restaurant.create(req.body)
     .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
+
+app.get('/restaurants/:id', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('show', { restaurant }))
     .catch(error => console.log(error))
 })
 // app.get('/restaurants/:restaurant_id', (req, res) => {
