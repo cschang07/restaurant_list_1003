@@ -6,6 +6,7 @@ const app = express()
 const port = 3000
 const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 const bodyParser = require('body-parser')
+const restaurant = require('./models/restaurant')
 
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
@@ -73,19 +74,14 @@ app.post('/restaurants/:id/edit', (req, res) => {
     .catch(error => console.log(error))
 })
 
-
-
-
-// app.get('/search' , (req, res) => {
-//   const keyword = req.query.keyword
-//   const restaurant = restaurantList.results.filter(restaurant => {
-//     return restaurant.name.toLowerCase().includes(keyword.toLowerCase()) || restaurant.category.toLowerCase().includes(keyword.toLowerCase())
-//   })
-//   res.render('index', { restaurant: restaurant})
-
-// })
-
-
+//delete
+app.post('/restaurants/:id/delete', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(error => console.log(error))
+})
 
 //start and listen on the Express server
 app.listen(port, () => {
