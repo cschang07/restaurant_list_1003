@@ -6,15 +6,13 @@ const app = express()
 const port = 3000
 const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 const bodyParser = require('body-parser')
-// const restaurant = require('./models/restaurant')
-
-// const restaurantList = require('./restaurant.json')
 
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 
+//connect to Database
 mongoose.connect('mongodb://localhost/restaurant_list_0923', { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
 
 // 取得資料庫連線狀態
@@ -28,11 +26,11 @@ db.once('open', () => {
   console.log('mongodb connected!')
 })
 
-
 // setting static files
 app.use(express.static('public'))
 
 //routes setting
+//index.handlebars
 app.get('/', (req, res) => {
   Restaurant.find()
     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
@@ -40,10 +38,10 @@ app.get('/', (req, res) => {
     .catch(error => console.error(error)) // 錯誤處理
 })
 
+//new.handlebars
 app.get('/restaurants/new', (req, res) => {
   return res.render('new')
 })
-
 app.post('/restaurants', (req, res) => {
   // console.log(req.body)
   return Restaurant.create(req.body)
@@ -51,6 +49,7 @@ app.post('/restaurants', (req, res) => {
     .catch(error => console.log(error))
 })
 
+//show.handlebars
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -58,10 +57,24 @@ app.get('/restaurants/:id', (req, res) => {
     .then((restaurant) => res.render('show', { restaurant }))
     .catch(error => console.log(error))
 })
-// app.get('/restaurants/:restaurant_id', (req, res) => {
-//   const restaurant = restaurantList.results.find(restaurant => restaurant.id.toString() === req.params.restaurant_id)
-//   res.render('show', { restaurant: restaurant })
-// })
+
+//edit.handlebars
+app.get('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findById(id)
+    .lean()
+    .then((restaurant) => res.render('edit', { restaurant }))
+    .catch(error => console.log(error))
+})
+app.post('/restaurants/:id/edit', (req, res) => {
+  const id = req.params.id
+  return Restaurant.findByIdAndUpdate(id, { $set: req.body })
+    .then(() => res.redirect(`/restaurants/${id}`))
+    .catch(error => console.log(error))
+})
+
+
+
 
 // app.get('/search' , (req, res) => {
 //   const keyword = req.query.keyword

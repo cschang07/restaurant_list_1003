@@ -1,0 +1,26 @@
+<div class="container d-flex justify-content-center">
+  <form action="/restaurants/{{ restaurant._id }}/edit" method="POST">
+    <div class="row">
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Name" name="name"
+        value="{{ restaurant.name }}">
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Name in English" name="name_en"
+        value="{{ restaurant.name_en }}">
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Category" name="category"
+        value="{{ restaurant.category }}">
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Image" name="image"
+        value="{{ restaurant.image }}">
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Location" name="location"
+        value="{{ restaurant.location }}">
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Phone Number" name="phone"
+        value="{{ restaurant.phone }}">
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Google map" name="google_map"
+        value="{{ restaurant.google_map }}">
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Rating" name="rating"
+        value="{{ restaurant.rating }}">
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Description" name="description"
+        value="{{ restaurant.description }}">
+    </div>
+    <button type="submit" class="btn btn-outline-secondary">儲存</button>
+    <a href="/"><button type="button" class="btn btn-outline-secondary">返回</button></a>
+  </form>
+</div>

@@ -19,6 +19,17 @@
     <div class="col-12 col-md-10 mx-auto">
 
       <p class="mb-1">
+      <div class="d-flex justify-content-end">
+        <a href="/restaurants/{{ restaurant._id }}/edit" class="mx-1"><button type="button"
+            class="btn btn-outline-secondary">編輯</button></a>
+        <form action="/restaurants/{{ todo._id }}/delete" method="POST" style="display: inline;">
+          <button type="submit" class="btn btn-outline-secondary">刪除</button>
+        </form>
+        <a href="/" class="mx-1"><button type="button" class="btn btn-outline-secondary">返回</button></a>
+      </div>
+      </p>
+
+      <p class="mb-1">
         <span class="text-secondary">
           <i class="fas fa-utensils pr-2"></i>
           類別：
