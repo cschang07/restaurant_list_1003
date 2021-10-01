@@ -2,16 +2,21 @@
 const express = require('express')
 const mongoose = require('mongoose') // 載入 mongoose
 const exphbs = require('express-handlebars')
-const app = express()
-const port = 3000
-const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 const bodyParser = require('body-parser')
-const restaurant = require('./models/restaurant')
+const methodOverride= require('method-override')
+
+const port = 3000
+
+const Restaurant = require('./models/restaurant') // 載入 Restaurant model
+
+const app = express()
 
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
+
+
 
 //connect to Database
 mongoose.connect('mongodb://localhost/restaurant_list_0923', { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
@@ -26,6 +31,8 @@ db.on('error', () => {
 db.once('open', () => {
   console.log('mongodb connected!')
 })
+
+app.use(methodOverride('_method'))
 
 // setting static files
 app.use(express.static('public'))
@@ -67,7 +74,7 @@ app.get('/restaurants/:id/edit', (req, res) => {
     .then((restaurant) => res.render('edit', { restaurant }))
     .catch(error => console.log(error))
 })
-app.post('/restaurants/:id/edit', (req, res) => {
+app.put('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findByIdAndUpdate(id, { $set: req.body })
     .then(() => res.redirect(`/restaurants/${id}`))
@@ -75,7 +82,7 @@ app.post('/restaurants/:id/edit', (req, res) => {
 })
 
 //delete
-app.post('/restaurants/:id/delete', (req, res) => {
+app.delete('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
     .then(restaurant => restaurant.remove())

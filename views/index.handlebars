@@ -21,7 +21,7 @@
                   class="fas fa-edit"></i></a>
               <a type="button" class="btn btn-outline-primary btn-sm mx-1" href="/restaurants/{{ this._id }}"><i
                   class="fas fa-info-circle"></i></a>
-              <form action="/restaurants/{{ this._id }}/delete" method="POST">
+              <form action="/restaurants/{{ this._id }}?_method=DELETE" method="POST">
                 <button class="btn btn-primary btn-sm mx-1" type="submit"><i class="fas fa-trash-alt"></i></button>
               </form>
             </div>
