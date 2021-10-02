@@ -9,6 +9,7 @@ const port = 3000
 
 const Restaurant = require('./models/restaurant') // 載入 Restaurant model
 
+const routes = require('./routes')
 const app = express()
 
 
@@ -34,17 +35,19 @@ db.once('open', () => {
 
 app.use(methodOverride('_method'))
 
+app.use(routes)
+
 // setting static files
 app.use(express.static('public'))
 
 //routes setting
 //index.handlebars
-app.get('/', (req, res) => {
-  Restaurant.find()
-    .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
-    .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
-    .catch(error => console.error(error)) // 錯誤處理
-})
+// app.get('/', (req, res) => {
+//   Restaurant.find()
+//     .lean() // 把 Mongoose 的 Model 物件轉換成乾淨的 JavaScript 資料陣列
+//     .then(restaurants => res.render('index', { restaurants })) // 將資料傳給 index 樣板
+//     .catch(error => console.error(error)) // 錯誤處理
+// })
 
 //new.handlebars
 app.get('/restaurants/new', (req, res) => {
