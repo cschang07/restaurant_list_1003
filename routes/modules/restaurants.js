@@ -1,5 +1,6 @@
 const express = require('express')
 const router = express.Router()
+
 const Restaurant = require('../../models/restaurant')
 
 //create GOOD
@@ -7,13 +8,12 @@ router.get('/new', (req, res) => {
   return res.render('new')
 })
 router.post('/', (req, res) => {
-  // console.log(req.body)
   return Restaurant.create(req.body)
     .then(() => res.redirect('/'))
     .catch(error => console.log(error))
 })
 
-//show.handlebars GOOD
+// show.handlebars GOOD
 router.get('/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
@@ -33,7 +33,7 @@ router.get('/:id/edit', (req, res) => {
 router.put('/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findByIdAndUpdate(id, { $set: req.body })
-    .then(() => res.redirect(`/${id}`))
+    .then(() => res.redirect(`/restaurants/${id}`))
     .catch(error => console.log(error))
 })
 
