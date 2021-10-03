@@ -19,6 +19,19 @@ app.use(bodyParser.urlencoded({ extended: true }))
 
 const mongoose = require('mongoose') // 載入 mongoose
 
+app.use(methodOverride('_method'))
+
+app.use(routes)
+
+// setting static files
+app.use(express.static('public'))
+
+
+//start and listen on the Express server
+app.listen(port, () => {
+  console.log(`Express is listening on localhost:${port}`)
+})
+
 // //connect to Database
 // mongoose.connect('mongodb://localhost/restaurant_list_0923', { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
 
@@ -32,16 +45,3 @@ const mongoose = require('mongoose') // 載入 mongoose
 // db.once('open', () => {
 //   console.log('mongodb connected!')
 // })
-
-app.use(methodOverride('_method'))
-
-app.use(routes)
-
-// setting static files
-app.use(express.static('public'))
-
-
-//start and listen on the Express server
-app.listen(port, () => {
-  console.log(`Express is listening on localhost:${port}`)
-})

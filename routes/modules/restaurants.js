@@ -3,7 +3,7 @@ const router = express.Router()
 
 const Restaurant = require('../../models/restaurant')
 
-//create GOOD
+//create
 router.get('/new', (req, res) => {
   return res.render('new')
 })
@@ -13,7 +13,7 @@ router.post('/', (req, res) => {
     .catch(error => console.log(error))
 })
 
-// show.handlebars GOOD
+// show.handlebars
 router.get('/:id', (req, res) => {
   const id = req.params.id
   return Restaurant.findById(id)
