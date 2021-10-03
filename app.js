@@ -2,7 +2,7 @@
 const express = require('express')
 const exphbs = require('express-handlebars')
 const bodyParser = require('body-parser')
-const methodOverride= require('method-override')
+const methodOverride = require('method-override')
 
 const port = 3000
 
@@ -16,9 +16,6 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 app.use(bodyParser.urlencoded({ extended: true }))
 
-
-const mongoose = require('mongoose') // 載入 mongoose
-
 app.use(methodOverride('_method'))
 
 app.use(routes)
@@ -26,11 +23,12 @@ app.use(routes)
 // setting static files
 app.use(express.static('public'))
 
-
 //start and listen on the Express server
 app.listen(port, () => {
   console.log(`Express is listening on localhost:${port}`)
 })
+
+// const mongoose = require('mongoose') // 載入 mongoose
 
 // //connect to Database
 // mongoose.connect('mongodb://localhost/restaurant_list_0923', { useNewUrlParser: true, useUnifiedTopology: true }) // 設定連線到 mongoDB
