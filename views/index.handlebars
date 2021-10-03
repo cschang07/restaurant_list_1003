@@ -1,20 +1,47 @@
-<!-- search bar -->
-<div class="container search-bar">
-  <div class="search-bar-outer">
-    <div class="search-bar-inner">
-      <form action="/search">
-        <h4 class="mb-2">尋找餐廳：</h4>
-        <div class="input-group">
-          <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類" aria-label="Restaurant Name..."
-            value="" aria-describedby="search-button">
-          <div class="input-group-append">
-            <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
-          </div>
+<div class="container col-10">
+  <div class="row justify-content-between">
+    <div class="col col-6">
+      <!-- search bar -->
+      <div class="container search-bar mt-3">
+        <div class="search-bar-inner">
+          <form action="/search">
+            <div class="input-group">
+              <input type="text" name="keyword" class="form-control" placeholder="輸入餐廳、分類"
+                aria-label="Restaurant Name..." value="" aria-describedby="search-button">
+              <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit" id="search-button"><i
+                    class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </form>
         </div>
+
+      </div>
+    </div>
+    {{!-- dropdown button --}}
+    <div class="col col-2 mt-3">
+      <form action="/sort?_method=PUT" method="post" class="dropdown">
+        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1"
+          data-bs-toggle="dropdown" aria-expanded="false">
+          排序方式
+        </button>
+        {{!-- <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+          <li><a class="dropdown-item" href="#">Action</a></li>
+          <li><a class="dropdown-item" href="#">Another action</a></li>
+          <li><a class="dropdown-item" href="#">Something else here</a></li>
+        </ul> --}}
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button type="submit" class="dropdown-item" name="sort" value="asc">A-Z</button>
+            <button type="submit" class="dropdown-item" name="sort" value="desc">Z-A</button>
+            <button type="submit" class="dropdown-item" name="sort" value="cat">類別</button>
+            <button type="submit" class="dropdown-item" name="sort" value="loc">地區</button>
+          </div>
       </form>
     </div>
   </div>
 </div>
+</div>
+
 
 <!-- restaurant list -->
 <div class="container mt-5">
