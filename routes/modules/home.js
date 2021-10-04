@@ -33,7 +33,7 @@ router.get('/search', (req, res) => {
 })
 
 // 3. sort function
-router.put('/sort', (req, res) => {
+router.post('/sort', (req, res) => {
   const sort = req.body.sort
   const sortOptions = {
     asc: { name: 'asc' },

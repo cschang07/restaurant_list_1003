@@ -2,23 +2,20 @@
   <form action="/restaurants/{{ restaurant._id }}?_method=PUT" method="POST">
     <div class="row">
       <input type="text" class="form-control text-secondary mb-3" placeholder="Name" name="name"
-        value="{{ restaurant.name }}">
-      <input type="text" class="form-control text-secondary mb-3" placeholder="Name in English" name="name_en"
-        value="{{ restaurant.name_en }}">
+        value="{{ restaurant.name }}" required>
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Name in English" name="name_en" value="{{ restaurant.name_en }}" required>
       <input type="text" class="form-control text-secondary mb-3" placeholder="Category" name="category"
-        value="{{ restaurant.category }}">
+        value="{{ restaurant.category }}" required>
       <input type="text" class="form-control text-secondary mb-3" placeholder="Image" name="image"
-        value="{{ restaurant.image }}">
+        value="{{ restaurant.image }}" required>
       <input type="text" class="form-control text-secondary mb-3" placeholder="Location" name="location"
-        value="{{ restaurant.location }}">
+        value="{{ restaurant.location }}" required>
       <input type="text" class="form-control text-secondary mb-3" placeholder="Phone Number" name="phone"
-        value="{{ restaurant.phone }}">
-      <input type="text" class="form-control text-secondary mb-3" placeholder="Google map" name="google_map"
-        value="{{ restaurant.google_map }}">
+        value="{{ restaurant.phone }}" required>
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Google map" name="google_map" value="{{ restaurant.google_map }}" required>
       <input type="text" class="form-control text-secondary mb-3" placeholder="Rating" name="rating"
-        value="{{ restaurant.rating }}">
-      <input type="text" class="form-control text-secondary mb-3" placeholder="Description" name="description"
-        value="{{ restaurant.description }}">
+        value="{{ restaurant.rating }}" required>
+      <input type="text" class="form-control text-secondary mb-3" placeholder="Description" name="description" value="{{ restaurant.description }}" required>
     </div>
     <button type="submit" class="btn btn-outline-secondary">儲存</button>
     <a href="/"><button type="button" class="btn btn-outline-secondary">返回</button></a>
