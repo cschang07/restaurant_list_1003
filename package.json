@@ -1,8 +1,8 @@
 {
-  "name": "restuarant_list",
+  "name": "restaurant_list",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
