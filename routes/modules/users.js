@@ -37,5 +37,9 @@ router.post('/register', (req, res) => {
     }
   })
 })
+router.get('/logout', (req, res) => {
+  req.logout() //.logout() is provided by Passport
+  res.redirect('/users/login')
+})
 
 module.exports = router
