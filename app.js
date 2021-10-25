@@ -5,8 +5,11 @@ const exphbs = require('express-handlebars')
 const methodOverride = require('method-override')
 const flash = require('connect-flash')
 const session = require('express-session')
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
-const port = 3000
+// const port = 3000
 
 const routes = require('./routes')
 
@@ -21,7 +24,7 @@ app.engine('handlebars', exphbs({ defaultLayout: 'main' }))
 app.set('view engine', 'handlebars')
 
 app.use(session({
-  secret: 'ThisIsMySecret',
+  secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true
 }))
@@ -52,6 +55,6 @@ app.use(routes)
 // app.use(express.static('public'))
 
 //start and listen on the Express server
-app.listen(port, () => {
-  console.log(`Express is listening on localhost:${port}`)
+app.listen(process.env.PORT, () => {
+  console.log(`Express is listening on localhost:${process.env.PORT}`)
 })
