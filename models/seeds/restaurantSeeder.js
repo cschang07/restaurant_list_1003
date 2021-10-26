@@ -8,32 +8,50 @@ const bcrypt = require('bcryptjs')
 const User = require('../user')
 const Restaurant = require('../restaurant')
 const restaurantList = require('./restaurant.json').results
-const seeders = require('./user.json').seeders
+const user = require('../user')
 
-db.once('open', () => {
-  Promise.all(
-    Array.from(seeders, seeder => {
-      return bcrypt
-        .genSalt(10)
-        .then(salt => bcrypt.hash(seeder.password, salt))
-        .then(hash => User.create({
-          name: seeder.name,
-          email: seeder.email,
-          password: hash
-        }))
-        .then(user => {
-          const userRestaurantList = []
-          Promise.all(Array.from(seeder.index, i => {
-            const restaurantData = restaurantList.find(restaurant => restaurant.id === i)
-            restaurantData[userId] = user._id
-            userRestaurantList.push(restaurantData)
+
+const password = '12345678'
+
+
+
+return bcrypt
+  .genSalt(10)
+  .then(salt => bcrypt.hash(password, salt))
+  .then(hash => {
+    return [{
+      name: 'user1',
+      email: 'user1@example.com',
+      password: hash,
+      index: [1, 2, 3]
+    },
+    {
+      name: 'user2',
+      email: 'user2@example.com',
+      password: hash,
+      index: [4, 5, 6]
+    }]
+  })
+  .then(userSeed => {
+    db.once('open', () => {
+      User
+        .create(userSeed)
+        .then((user) => {
+          const [{ _id: user1_id }, { _id: user2_id }] = user
+          return Promise.all(restaurantList.map((item, index) => {
+            if (index < 3) {
+              return Restaurant.create(Object.assign(item, { userId: user1_id }))
+            } else if (index > 3 && index < 7) {
+              return Restaurant.create(Object.assign(item, { userId: user2_id }))
+            }
           }))
-          return Restaurant.create(userRestaurantList)
         })
-    }))
-    .then(() => {
-      console.log('Data created.')
-      process.exit()
+        .finally(() => {
+          console.log('Data created.')
+          process.exit()
+        })
+        .catch(err => console.log(err))
     })
-    .catch(error => console.log(error))
-})
+  })
+
+
